@@ -29,6 +29,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,39 +39,55 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Center(
-            child: const Text("This is where the question will go",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25.0,
-              color: Colors.white,
-            ),),
+            child: const Text(
+              "This is where the question will go",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25.0,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
         Expanded(
           child: TextButton(
             onPressed: () {
-              print("The user picked true");
+              setState(() {
+                scoreKeeper.add(
+                  Icon(Icons.check, color: Colors.green),
+                );
+              });
             },
-            child: Text('True',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.green,
-            ),),
+            child: Text(
+              'True',
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.green,
+              ),
+            ),
           ),
         ),
-         Expanded(
+        Expanded(
           child: TextButton(
-            
             onPressed: () {
-              print("The user picked false");
+              setState(() {
+                scoreKeeper.add(
+                  Icon(Icons.close, color: Colors.red),
+                );
+              });
             },
-            child: Text('False',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.red,
-            ),),
+            child: Text(
+              'False',
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.red,
+              ),
+            ),
           ),
         ),
+        Row(
+          children: scoreKeeper,
+        )
       ],
     );
   }
