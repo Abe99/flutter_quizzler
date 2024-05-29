@@ -30,6 +30,13 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'Is Magnus Carlsen Norwegian?',
+    'is Tunis the capital of Morocco?',
+    'is 2 times 2 equals 4 ?'
+  ];
+  List<bool> answers = [true, false, true];
+  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,8 +46,8 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Center(
-            child: const Text(
-              "This is where the question will go",
+            child:  Text(
+              questions[questionNumber],
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -52,10 +59,15 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           child: TextButton(
             onPressed: () {
+              
               setState(() {
+                questionNumber += 1;
+                
                 scoreKeeper.add(
                   Icon(Icons.check, color: Colors.green),
+                  
                 );
+                
               });
             },
             child: Text(
@@ -71,6 +83,7 @@ class _QuizPageState extends State<QuizPage> {
           child: TextButton(
             onPressed: () {
               setState(() {
+                questionNumber += 1;
                 scoreKeeper.add(
                   Icon(Icons.close, color: Colors.red),
                 );
