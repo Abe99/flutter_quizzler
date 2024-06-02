@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+
 QuizBrain quizBrain = QuizBrain();
 
 void main() => runApp(Quizzler());
@@ -32,9 +33,28 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  
-  
-  
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer();
+    if (userPickedAnswer == correctAnswer) {
+      scoreKeeper.add(
+        Icon(
+          Icons.check,
+          color: Colors.green,
+        ),
+      );
+    } else {
+      scoreKeeper.add(
+        Icon(
+          Icons.close,
+          color: Colors.red,
+        ),
+      );
+    }
+    setState(() {
+      quizBrain.nextQuestion();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Center(
-            child:  Text(
+            child: Text(
               quizBrain.getQuestionText(),
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -57,22 +77,11 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           child: TextButton(
             onPressed: () {
-              bool correctAnswer = quizBrain.getQuestionAnswer();
-              if (correctAnswer == true) {
-                print('user got it right!');
-              } else {
-                print('user got it wrong!');
-              }
+              checkAnswer(true);
               
-              setState(() {
-                quizBrain.nextQuestion();
-                
-                scoreKeeper.add(
-                  Icon(Icons.check, color: Colors.green),
-                  
-                );
-                
-              });
+             
+
+             
             },
             child: Text(
               'True',
@@ -86,18 +95,9 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           child: TextButton(
             onPressed: () {
-              bool correctAnswer = quizBrain.getQuestionAnswer();
-              if (correctAnswer == false) {
-                print("user got it right!");
-              } else {
-                print('user got it wrong!');
-              }
-              setState(() {
-                quizBrain.nextQuestion();
-                scoreKeeper.add(
-                  Icon(Icons.close, color: Colors.red),
-                );
-              });
+              checkAnswer(false);
+              
+            ;
             },
             child: Text(
               'False',
